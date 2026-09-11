@@ -1,0 +1,36 @@
+===== Railway Deployment Log =====
+Build: ✓ Success
+Deploy: ✓ Success
+Service: demo-fastapi-app-production
+Region: us-west1
+Started at: 2026-09-11T14:23:45.123Z
+
+===== Runtime Error =====
+[2026-09-11 14:25:12] INFO:     Started server process [1]
+[2026-09-11 14:25:12] INFO:     Waiting for application startup.
+[2026-09-11 14:25:12] INFO:     Application startup complete.
+[2026-09-11 14:25:12] INFO:     Uvicorn running on http://0.0.0.0:8000
+[2026-09-11 14:25:34] INFO:     172.17.0.1:45678 - "POST /api/users HTTP/1.1" 500 Internal Server Error
+
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/opt/venv/lib/python3.11/site-packages/uvicorn/protocols/http/h11_impl.py", line 408, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/opt/venv/lib/python3.11/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/opt/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/opt/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, send)
+  File "/app/main.py", line 48, in create_user
+    api_key = os.environ["API_SECRET_KEY"]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'API_SECRET_KEY'
+
+[2026-09-11 14:25:34] ERROR: Worker process died unexpectedly
