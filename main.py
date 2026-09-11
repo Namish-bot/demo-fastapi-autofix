@@ -46,7 +46,7 @@ async def create_user(user: UserData):
     This will throw KeyError at request time (not import time)
     """
     # This line will fail if API_SECRET_KEY is not set
-    api_key = os.environ["API_SECRET_KEY"]  # BUG: No .get() or try/except
+    api_key = os.environ.get("API_SECRET_KEY", "")  # BUG: No .get() or try/except
     
     # Simulate some validation logic
     if not api_key:
